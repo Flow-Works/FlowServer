@@ -1,0 +1,24 @@
+{
+  "name": "flow-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "standard",
+    "start": "node .",
+    "init": "node init.js"
+  },
+  "keywords": [],
+  "author": "Flow Works",
+  "license": "MIT",
+  "dependencies": {
+    "@ptkdev/logger": "^1.8.0",
+    "@tomphttp/bare-server-node": "^2.0.1",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  }
+}
