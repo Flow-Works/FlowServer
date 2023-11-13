@@ -15,6 +15,7 @@ logger.info(`Starting FlowServer v${pkg.version}...`)
 console.log()
 
 server.on('request', (req, res) => {
+  req.setHeaders('Access-Control-Allow-Origin', '*')
   logger.debug(`${req.headers['x-forwarded-for'] || req.socket.remoteAddress} - ${req.method} "${req.url}" HTTP/${req.httpVersion} ${res.statusCode} ${req.socket.bytesRead}`)
   if (bare.shouldRoute(req)) {
     bare.routeRequest(req, res)
