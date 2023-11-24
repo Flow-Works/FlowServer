@@ -31,9 +31,10 @@ To run FlowServer on your local machine, you need Node.js 16 or above.
 ```bash
 git clone https://github.com/Flow-Works/FlowServer
 ```
+3. Add your desired content in `config.json`
 2. Install packages
 ```bash
-npm install
+npm install && node init.js
 ```
 3. Run!
 ```bash
