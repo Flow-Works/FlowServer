@@ -4,7 +4,6 @@ const Logger = require('@ptkdev/logger')
 const express = require('express')
 const { createBareServer } = require('@tomphttp/bare-server-node')
 const { createServer } = require('http')
-const { slowDown } = require('express-slow-down')
 const csrf = require('csurf')
 
 const logger = new Logger()
@@ -13,12 +12,6 @@ const server = createServer()
 const app = express()
 
 app.use(csrf())
-
-const limiter = slowDown({
-  windowMs: 15 * 60 * 1000,
-  delayAfter: 10,
-  delayMs: (hits) => hits * 100
-})
 
 app.disable('x-powered-by')
 
@@ -44,7 +37,6 @@ server.on('upgrade', (req, socket, head) => {
 })
 
 app.use('/apps', require('./apps'))
-app.use('/apps/list', limiter)
 
 const PORT = process.env.PORT || 3000
 

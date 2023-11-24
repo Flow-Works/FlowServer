@@ -1,8 +1,15 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
+const { slowDown } = require('express-slow-down')
 
 const app = express.Router()
+
+const limiter = slowDown({
+  windowMs: 15 * 60 * 1000,
+  delayAfter: 10,
+  delayMs: (hits) => hits * 100
+})
 
 function readJSONFiles (folderPath, callback) {
   fs.readdir(folderPath, (err, files) => {
@@ -26,7 +33,7 @@ function readJSONFiles (folderPath, callback) {
   })
 }
 
-app.get('/list', (req, res) => {
+app.get('/list', limiter, (req, res) => {
   readJSONFiles(path.join(__dirname, '../repos'), (list) => { res.send(list) })
 })
 
