@@ -5,7 +5,7 @@ const express = require('express')
 const { createBareServer } = require('@tomphttp/bare-server-node')
 const { createServer } = require('http')
 const { slowDown } = require('express-slow-down')
-const csrf = require('csurf');
+const csrf = require('csurf')
 
 const logger = new Logger()
 const bare = createBareServer('/bare/')
