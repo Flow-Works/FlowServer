@@ -11,8 +11,6 @@ const bare = createBareServer('/bare/')
 const server = createServer()
 const app = express()
 
-app.use(csrf())
-
 app.disable('x-powered-by')
 
 console.clear()
@@ -54,6 +52,8 @@ function shutdown () {
 
 process.on('SIGINT', shutdown)
 process.on('SIGTERM', shutdown)
+
+app.use(csrf())
 
 server.listen({
   port: PORT
