@@ -26,6 +26,7 @@ fs.mkdirSync(path.join(__dirname, 'repos'))
 
 config.repos.forEach((url) => {
   fetch(url).then(res => res.json()).then(content => {
-    fs.writeFileSync(path.join(__dirname, 'repos', uuid() + '.json'), JSON.stringify(content))
+    content.id = uuid()
+    fs.writeFileSync(path.join(__dirname, 'repos', content.id + '.json'), JSON.stringify(content))
   })
 })
