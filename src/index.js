@@ -4,14 +4,16 @@ const Logger = require('@ptkdev/logger')
 const express = require('express')
 const { createBareServer } = require('@tomphttp/bare-server-node')
 const { createServer } = require('http')
-const csrf = require('csurf')
+const cors = require('cors')
 
 const logger = new Logger()
 const bare = createBareServer('/bare/')
 const server = createServer()
 const app = express()
 
-app.disable('x-powered-by')
+app.use(cors())
+
+app.use('/apps', require('./apps'))
 
 console.clear()
 logger.info(`Starting FlowServer v${pkg.version}...`)
@@ -34,8 +36,6 @@ server.on('upgrade', (req, socket, head) => {
   }
 })
 
-app.use('/apps', require('./apps'))
-
 const PORT = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
@@ -52,8 +52,6 @@ function shutdown () {
 
 process.on('SIGINT', shutdown)
 process.on('SIGTERM', shutdown)
-
-app.use(csrf())
 
 server.listen({
   port: PORT
