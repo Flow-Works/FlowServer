@@ -12,6 +12,7 @@ const server = createServer()
 const app = express()
 
 app.use(cors())
+app.enable('trust proxy')
 
 app.use('/apps', require('./apps'))
 
