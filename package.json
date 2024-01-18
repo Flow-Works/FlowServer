@@ -6,7 +6,8 @@
   "scripts": {
     "test": "standard",
     "start": "node .",
-    "init": "node init.js"
+    "init": "node init.js",
+    "commit": "cz"
   },
   "keywords": [],
   "author": "Flow Works",
@@ -21,6 +22,14 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "commitizen": "^4.3.0",
+    "semantic-release": "^23.0.0",
     "standard": "^17.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

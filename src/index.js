@@ -6,6 +6,7 @@ const { createBareServer } = require('@tomphttp/bare-server-node')
 const { createServer } = require('http')
 const cors = require('cors')
 
+// @ts-ignore
 const logger = new Logger()
 const bare = createBareServer('/bare/')
 const server = createServer()
@@ -23,11 +24,11 @@ console.log()
 server.on('request', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
-  res.setHeader('Access-Control-Max-Age', 2592000)
+  res.setHeader('Access-Control-Max-Age', 2592_000)
   res.setHeader('Access-Control-Allow-Headers', 'content-type')
   res.setHeader('X-Proxy-Backend', 'FlowServer')
 
-  if (req.url.includes('bare/v2') || req.url.includes('bare/v3')) {
+  if (req.url?.includes('bare/v2') || req.url?.includes('bare/v3')) {
     res.writeHead(401, { 'Content-Type': 'application/json' })
     res.write(JSON.stringify({
       code: 401,
@@ -63,6 +64,33 @@ app.get('/', (req, res) => {
   res.send({
     version: pkg.version
   })
+})
+
+app.get('/cors', (req, res) => {
+  if (req.query.url == null) {
+    res.status(400)
+    res.send({
+      code: 400,
+      message: 'URL is required.'
+    })
+    return
+  }
+  // @ts-ignore
+  fetch(req.query.url, { method: 'GET', headers: req.headers, body: req.body })
+    .then((response) => {
+      res.status(response.status)
+      return response.text()
+    })
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.status(500)
+      res.send({
+        code: 500,
+        message: error.message
+      })
+    })
 })
 
 function shutdown () {
