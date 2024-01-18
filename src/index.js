@@ -84,6 +84,13 @@ app.get('/cors', (req, res) => {
     .then((data) => {
       res.send(data)
     })
+    .catch((error) => {
+      res.status(500)
+      res.send({
+        code: 500,
+        message: error.message
+      })
+    })
 })
 
 function shutdown () {
