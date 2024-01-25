@@ -76,7 +76,7 @@ app.get('/cors', (req, res) => {
     return
   }
   // @ts-ignore
-  fetch(req.query.url, { method: 'GET', headers: req.headers, body: req.body })
+  fetch(req.query.url, { method: 'GET' })
     .then((response) => {
       res.status(response.status)
       return response.text()
