@@ -28,19 +28,6 @@ server.on('request', (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'content-type')
   res.setHeader('X-Proxy-Backend', 'FlowServer')
 
-  if (req.url?.includes('bare/v3')) {
-    res.writeHead(401, { 'Content-Type': 'application/json' })
-    res.write(JSON.stringify({
-      code: 401,
-      message: 'This request has been blocked.'
-    }))
-    res.end()
-
-    logger.debug(`${req.headers['x-forwarded-for'] || req.socket.remoteAddress} - ${req.method} "${req.url}" HTTP/${req.httpVersion} ${res.statusCode} ${req.socket.bytesRead}`)
-
-    return
-  }
-
   logger.debug(`${req.headers['x-forwarded-for'] || req.socket.remoteAddress} - ${req.method} "${req.url}" HTTP/${req.httpVersion} ${res.statusCode} ${req.socket.bytesRead}`)
 
   if (bare.shouldRoute(req)) {
