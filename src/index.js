@@ -28,7 +28,7 @@ server.on('request', (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'content-type')
   res.setHeader('X-Proxy-Backend', 'FlowServer')
 
-  if (req.url?.includes('bare/v2') || req.url?.includes('bare/v3')) {
+  if (req.url?.includes('bare/v3')) {
     res.writeHead(401, { 'Content-Type': 'application/json' })
     res.write(JSON.stringify({
       code: 401,
