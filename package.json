@@ -19,7 +19,8 @@
     "express": "^4.18.2",
     "express-slow-down": "^2.0.1",
     "node-fetch": "^2.7.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "wisp-server-node": "^1.0.1"
   },
   "devDependencies": {
     "@semantic-release/git": "^10.0.1",
